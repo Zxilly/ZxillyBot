@@ -6,7 +6,7 @@ const acceptableConclusions = function (conclusion: string | null) {
 }
 
 const mergePR = async (octokit: ProbotOctokit, log: (msg: string) => void, owner: string, repo: string, pr: number) => {
-    const pull = await octokit.pulls.get({
+    const pull = await octokit.rest.pulls.get({
         owner,
         repo,
         pull_number: pr,
@@ -43,7 +43,7 @@ const mergePR = async (octokit: ProbotOctokit, log: (msg: string) => void, owner
         return;
     }
 
-    const check_runs = await octokit.checks.listForRef({
+    const check_runs = await octokit.rest.checks.listForRef({
         owner,
         repo,
         ref: data.head.ref,
@@ -65,7 +65,7 @@ const mergePR = async (octokit: ProbotOctokit, log: (msg: string) => void, owner
         return;
     }
 
-    const {data: {merged, message}} = await octokit.pulls.merge({
+    const {data: {merged, message}} = await octokit.rest.pulls.merge({
         owner,
         repo,
         pull_number: data.number,
@@ -79,8 +79,10 @@ const mergePR = async (octokit: ProbotOctokit, log: (msg: string) => void, owner
     }
 }
 
-const mergeAllPRinRepo = async (octokit: InstanceType<typeof ProbotOctokit>, log: (msg: string) => void, owner: string, repo: string) => {
-    const prs = await octokit.pulls.list({
+const mergeAllPRinRepo = async (octokit: InstanceType<typeof ProbotOctokit>, log: (msg: string) => void, fullname: string) => {
+    const [owner, repo] = fullname.split("/");
+    
+    const prs = await octokit.rest.pulls.list({
         owner,
         repo,
         state: "open",
@@ -96,7 +98,7 @@ const mergeAllPRinRepo = async (octokit: InstanceType<typeof ProbotOctokit>, log
 
 export = (app: Probot) => {
     app.onAny(async (context) => {
-        console.log(`Event ${context.name} received`);
+        console.log(`Event ${context.name} received`);  
     })
 
     app.on("installation_repositories.added", async (context) => {
@@ -108,8 +110,7 @@ export = (app: Probot) => {
             await mergeAllPRinRepo(
                 context.octokit,
                 context.log.info,
-                context.payload.installation.account.login,
-                repo.name,
+                repo.full_name,
             )
         }
     })
@@ -128,8 +129,7 @@ export = (app: Probot) => {
             await mergeAllPRinRepo(
                 context.octokit,
                 context.log.info,
-                context.payload.installation.account.login,
-                repo.name,
+                repo.full_name,
             )
         }
 

@@ -16,12 +16,12 @@
     "start": "tsc && probot run ./lib/src/index.js"
   },
   "dependencies": {
-    "probot": "^13.4.3"
+    "probot": "^14.2.4"
   },
   "devDependencies": {
-    "@types/node": "^22.13.4",
-    "smee-client": "^2.0.4",
-    "typescript": "^5.7.3"
+    "@types/node": "^24.10.1",
+    "smee-client": "^5.0.0",
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">= 10.13.0"
