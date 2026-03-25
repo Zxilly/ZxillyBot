@@ -4,4 +4,4 @@ import app from "../../../src/index";
 
 const probot = createProbot()
 
-export = createNodeMiddleware(app, {probot, webhooksPath: "/api/github/webhooks"})
+export default createNodeMiddleware(app, {probot, webhooksPath: "/api/github/webhooks"})

@@ -4,6 +4,7 @@
   "private": true,
   "description": "Auto merge PRs if it is possible",
   "author": "Zxilly",
+  "type": "module",
   "license": "MIT",
   "homepage": "https://github.com//",
   "keywords": [
@@ -16,12 +17,12 @@
     "start": "tsc && probot run ./lib/src/index.js"
   },
   "dependencies": {
-    "probot": "^14.2.4"
+    "probot": "^14.3.1"
   },
   "devDependencies": {
-    "@types/node": "^24.10.1",
+    "@types/node": "^25.5.0",
     "smee-client": "^5.0.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "engines": {
     "node": ">= 10.13.0"

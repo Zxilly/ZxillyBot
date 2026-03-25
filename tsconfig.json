@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2020",
+    "module": "es2022",
     "lib": [
-      "es2015",
-      "es2017"
+      "es2020"
     ],
     "declaration": false,
     "sourceMap": true,
     "outDir": "./lib",
     "strict": true,
     "noImplicitAny": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
